@@ -30,7 +30,7 @@ begin
   insert into public.transacoes(id, origem_iban, destino_iban, valor, categoria, descricao, estado, codigo_auth)
   values (v_id, null, v_conta.iban, p_valor, p_categoria, p_descricao, 'concluida', v_codigo);
   return jsonb_build_object('ok', true, 'dados', jsonb_build_object(
-    'iban', v_conta.iban, 'saldo', v_conta.saldo + p_valor, 'codigo', v_codigo));
+    'id', v_id, 'iban', v_conta.iban, 'saldo', v_conta.saldo + p_valor, 'codigo', v_codigo));
 exception when others then
   return jsonb_build_object('ok', false, 'erro', 'Falha ao creditar: ' || sqlerrm);
 end; $function$;
